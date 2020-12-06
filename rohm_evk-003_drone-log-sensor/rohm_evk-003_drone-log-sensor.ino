@@ -103,7 +103,6 @@ void setup() {
 
 void loop() {
   byte rc;
-  //unsigned short val[2];
   unsigned short ps_val;
   float als_val;
   unsigned short rgbc[5];
@@ -117,7 +116,6 @@ void loop() {
   char mag1buf[16];
   char mag2buf[16];
   char pressbuf[16];
-  char presstempbuf[16];
   char acc0buf[16];
   char acc1buf[16];
   char acc2buf[16];
@@ -136,11 +134,10 @@ void loop() {
       dtostrf(mag[1],5,1,mag1buf);
       dtostrf(mag[2],5,1,mag2buf);
       dtostrf(press,5,3 ,pressbuf);
-      dtostrf(press_temp,5,1,presstempbuf);
       dtostrf(acc[0],5,1,acc0buf);
       dtostrf(acc[1],5,1,acc1buf);
       dtostrf(acc[2],5,1,acc2buf);
-      sprintf(str, "%s,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d\n", alsvalbuf, ps_val, tempbuf, mag0buf, mag1buf, mag2buf, pressbuf, presstempbuf, acc0buf, acc1buf, acc2buf, rgbc[0], rgbc[1], rgbc[2], rgbc[3], rgbc[4]);
+      sprintf(str, "%s,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d\n", alsvalbuf, ps_val, tempbuf, mag0buf, mag1buf, mag2buf, pressbuf, acc0buf, acc1buf, acc2buf, rgbc[0], rgbc[1], rgbc[2], rgbc[3], rgbc[4]);
       Serial.print(str);
     }
     timer_flg = false;

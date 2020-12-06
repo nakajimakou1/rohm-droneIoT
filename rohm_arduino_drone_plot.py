@@ -9,14 +9,14 @@ import math
 
 def main():
     dataReadSouceFlag = False # True:csv File Read False:Serial Rcv
-    xscale = 400             # Graph X scale
+    xscale = 400              # Graph X scale
     
     if(dataReadSouceFlag == False) :
         ser = serial.Serial("COM7", 115200)  # COMポート(Arduino接続)
         ser.flush()
 
 
-    temps = np.array([0]*xscale)         # 温度格納
+    temps = np.array([0]*xscale)       # 温度格納
     luxs= np.array([0]*xscale)         # 照度センサ
     presss= np.array([0]*xscale)
     magxys= np.array([0]*xscale)
@@ -44,8 +44,8 @@ def main():
     bd1020.get_val(&temp);	// 温度センサ
     bm1422agmv.get_val(mag);// 地磁気センサ
     kx224.get_val(acc);		// 加速度センサ
-    sprintf(str,"%s,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d\n", alsvalbuf, ps_val, tempbuf, mag0buf, mag1buf, mag2buf, pressbuf, presstempbuf, acc0buf, acc1buf, acc2buf, rgbc[0], rgbc[1], rgbc[2], rgbc[3], rgbc[4]);
-    sprintf(str,"%s,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d\n", als_val  , ps_val, tempbuf, mag[x] , mag[y] , mag[z] , pressbuf, presstempbuf, acc[x] , acc[y] , acc[z] , (RED)  , (GREEN), (BLUE) , (IR)   ,(GREEN2));
+    sprintf(str,"%s,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d\n", alsvalbuf, ps_val, tempbuf, mag0buf, mag1buf, mag2buf, pressbuf, acc0buf, acc1buf, acc2buf, rgbc[0], rgbc[1], rgbc[2], rgbc[3], rgbc[4]);
+    sprintf(str,"%s,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d\n", als_val  , ps_val, tempbuf, mag[x] , mag[y] , mag[z] , pressbuf, acc[x] , acc[y] , acc[z] , (RED)  , (GREEN), (BLUE) , (IR)   ,(GREEN2));
     """
 
     # log write csv file
@@ -94,7 +94,6 @@ def main():
       temps  = np.delete(temps, len(temps) - 1)
       presss = np.append((float(temp[6])-1020.63)*100, presss)  # 気圧
       presss = np.delete(presss, len(presss) - 1)
-      # magxys = np.append(math.degrees(math.atan2((float(temp[3])+30), (float(temp[4])+20))), magxys)  # 
       magxys = np.append((math.degrees(math.atan2((float(temp[3])+30), (float(temp[4])+20)))/2), magxys)  # 
       magxys = np.delete(magxys, len(magxys) - 1)
       accxs  = np.append(float(temp[8])*50, accxs)
@@ -114,7 +113,7 @@ def main():
       ax.set_ylim([0,100])
 
       line1, = ax.plot(t, temps, color='blue')   # 温度更新
-      line2, = ax.plot(t, luxs, color='red')   # 照度更新
+      line2, = ax.plot(t, luxs, color='red')     # 照度更新
       line3, = ax.plot(t, presss, color='green') # 気圧更新
       #line4,= ax.plot(t, accxs, color='yellow') # ACC X軸更新
       line5, = ax.plot(t, acczs, color='purple') # ACC Z軸更新
